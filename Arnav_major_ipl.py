@@ -18,3 +18,7 @@ data = data[(data['bat_team'] == 'Chennai Super Kings') | (data['bowl_team'] == 
 dummies2 = pd.get_dummies(data[data['bat_team'] == 'Chennai Super Kings']['batsman'], prefix = 'batsman')
 matchid = data['mid']
 batters = pd.concat([matchid, dummies2], axis = 1)
+#batsmen played in each match
+batters = batters.groupby('mid',as_index=False).sum()
+batters = batters.drop(['mid'], axis = 1)
+
