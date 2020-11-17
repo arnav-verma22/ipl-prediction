@@ -41,3 +41,16 @@ bowlers = bowlers.drop(['mid'], axis = 1)
 #concatinating dummy variables of bowlers and batsman
 final_data = pd.concat([data, bowlers, batters], axis = 1)
 
+#creating dummy variables of bat_team, bowl_team and venue and removing their categorical columnsq
+dummies3 = pd.get_dummies(final_data['bat_team'], prefix = 'bat_team')
+dummies4 = pd.get_dummies(final_data['bowl_team'], prefix = 'bowl_team')
+dummies5 = pd.get_dummies(final_data['venue'], prefix = 'venue')
+final_data = pd.concat([final_data, dummies3, dummies4, dummies5], axis = 1)
+
+backup = final_data
+categorical_features = ['venue', 'bat_team', 'bowl_team', 'batsman', 'bowler']
+final_data = final_data.drop(columns = categorical_features)
+
+test = backup[(backup['bat_team'] == 'Chennai Super Kings') & (backup['bowl_team'] == 'Royal Challengers Bangalore')]
+test_data = test.drop(columns = categorical_features)
+
