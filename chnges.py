@@ -14,3 +14,7 @@ columns_to_drop = ['date', 'wickets', 'overs', 'runs_last_5', 'wickets_last_5', 
 data = dataset.drop(columns = columns_to_drop)
 #data = data[(data['bat_team'] == 'Chennai Super Kings') | (data['bowl_team'] == 'Royal Challengers Bangalore')]
 
+#creating dummy variables of all batsmen of batting team
+dummies2 = pd.get_dummies(data['batsman'], prefix = 'batsman')
+matchid = data['mid']
+batters = pd.concat([matchid, dummies2], axis = 1)
