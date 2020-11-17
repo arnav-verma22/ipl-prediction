@@ -54,3 +54,12 @@ final_data = final_data.drop(columns = categorical_features)
 test = backup[(backup['bat_team'] == 'Chennai Super Kings') & (backup['bowl_team'] == 'Royal Challengers Bangalore')]
 test_data = test.drop(columns = categorical_features)
 
+cond = final_data['mid'].isin(test_data['mid'])
+train_data = final_data.drop(final_data[cond].index)
+
+y_train = train_data['total']
+x_train = train_data.drop(['total'], axis = 1)
+
+y_test = test_data['total']
+x_test = test_data.drop(['total'], axis = 1)
+
