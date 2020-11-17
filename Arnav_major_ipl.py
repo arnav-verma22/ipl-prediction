@@ -22,3 +22,10 @@ batters = pd.concat([matchid, dummies2], axis = 1)
 batters = batters.groupby('mid',as_index=False).sum()
 batters = batters.drop(['mid'], axis = 1)
 
+#creating dummy variables of all bowlers of bowling team
+data.drop_duplicates(subset =["mid", "bowler"], keep = "first", inplace = True)
+dummies = pd.get_dummies(data[data['bowl_team'] == 'Royal Challengers Bangalore']['bowler'], prefix = 'bowler')
+
+matchid = data['mid']
+bowlers = pd.concat([matchid, dummies], axis = 1)
+
