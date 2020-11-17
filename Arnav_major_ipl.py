@@ -34,3 +34,10 @@ data = data.drop_duplicates(subset =["mid"], keep = "first")
 data.reset_index(inplace = True)
 data = data.drop(['index'], axis = 1)
 
+#bowlers played in each match
+bowlers = bowlers.groupby('mid',as_index=False).sum()
+bowlers = bowlers.drop(['mid'], axis = 1)
+
+#concatinating dummy variables of bowlers and batsman
+final_data = pd.concat([data, bowlers, batters], axis = 1)
+
