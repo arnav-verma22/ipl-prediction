@@ -29,3 +29,8 @@ dummies = pd.get_dummies(data['bowler'], prefix = 'bowler')
 matchid = data['mid']
 bowlers = pd.concat([matchid, dummies], axis = 1)
 
+#Summarising the each match to 1 row instead of each ball detail
+data = data.drop_duplicates(subset =["mid"], keep = "first")
+data.reset_index(inplace = True)
+data = data.drop(['index'], axis = 1)
+
