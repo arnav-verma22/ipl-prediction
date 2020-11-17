@@ -64,3 +64,6 @@ y_pred = forest.predict(x_test)
 forest.score(x_test,y_test)
 forest.score(x_train,y_train)
 
+from sklearn.model_selection import cross_val_score
+cv_scores=cross_val_score(RandomForestRegressor(),x,y,cv=5)
+cv_scores
