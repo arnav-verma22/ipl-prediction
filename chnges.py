@@ -34,3 +34,22 @@ data = data.drop_duplicates(subset =["mid"], keep = "first")
 data.reset_index(inplace = True)
 data = data.drop(['index'], axis = 1)
 
+#bowlers played in each match
+bowlers = bowlers.groupby('mid',as_index=False).sum()
+bowlers = bowlers.drop(['mid'], axis = 1)
+
+#concatinating dummy variables of bowlers and batsman
+final_data = pd.concat([data, bowlers, batters], axis = 1)
+
+#creating dummy variables of bat_team, bowl_team and venue and removing their categorical columnsq
+dummies3 = pd.get_dummies(final_data['bat_team'], prefix = 'bat_team')
+dummies4 = pd.get_dummies(final_data['bowl_team'], prefix = 'bowl_team')
+dummies5 = pd.get_dummies(final_data['venue'], prefix = 'venue')
+final_data = pd.concat([final_data, dummies3, dummies4, dummies5], axis = 1)
+
+backup = final_data
+categorical_features = ['venue', 'bat_team', 'bowl_team', 'batsman', 'bowler']
+final_data = final_data.drop(columns = categorical_features)
+
+y = final_data['total']
+x = final_data.drop(['total'], axis = 1)
