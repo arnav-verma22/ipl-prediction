@@ -63,3 +63,9 @@ x_train = train_data.drop(['total'], axis = 1)
 y_test = test_data['total']
 x_test = test_data.drop(['total'], axis = 1)
 
+from sklearn.ensemble import RandomForestRegressor
+forest=RandomForestRegressor()
+forest.fit(x_train,y_train)
+y_pred = forest.predict(x_test)
+forest.score(x_test,y_test)
+forest.score(x_train,y_train)
